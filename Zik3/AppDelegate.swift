@@ -56,8 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if batterylevel != nil {
             if (batterylevel! == 20 || batterylevel! == 10) && !notificationGiven  {
                 // Give a notification
-                
-                showNotification(title: "Parrot Zik", body: "Battery is only " + self.deviceState.batteryLevel + "% . Please recharge")
+                showNotification(title: "Parrot Zik", body: "Battery is low. Please recharge")
             }
             if batterylevel! < 20 && batterylevel! > 10 {
                 notificationGiven = false
