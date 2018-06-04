@@ -35,23 +35,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     @objc
     func doMenu() {
+        let menu = NSMenu(title: "Contextual menu")
+
         if self.deviceState.name == "" {
             iconOff?.isTemplate = true
-
             statusItem.button?.image = iconOff
+            
+            let _ = menu.addItem(withTitle: "Zik not connected", action: nil, keyEquivalent: "")
         }else{
             iconOn?.isTemplate = true
             statusItem.button?.image = iconOn
-
+            
+            let _ = menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
         }
-        
-        let menu = NSMenu(title: "Contextual menu")
-        var menuItem = menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
-        
+                
         let batteryLevelString = self.deviceState.batteryLevel
         
         var title = "Battery level: " + batteryLevelString + "%"
-        menuItem = menu.addItem(withTitle: title, action: nil, keyEquivalent: "")
+        var menuItem = menu.addItem(withTitle: title, action: nil, keyEquivalent: "")
         menuItem.indentationLevel = 1
         
         let batterylevel: Int? = Int(batteryLevelString)
