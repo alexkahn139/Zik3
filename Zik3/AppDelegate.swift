@@ -48,15 +48,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let menu = NSMenu(title: "Contextual menu")
         var menuItem = menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
         
-        var title = "Battery level: " + self.deviceState.batteryLevel + "%"
+        let batteryLevelString = self.deviceState.batteryLevel
+        
+        var title = "Battery level: " + batteryLevelString + "%"
         menuItem = menu.addItem(withTitle: title, action: nil, keyEquivalent: "")
         menuItem.indentationLevel = 1
         
-        let batterylevel: Int? = Int(self.deviceState.batteryLevel)
+        let batterylevel: Int? = Int(batteryLevelString)
         if batterylevel != nil {
             if (batterylevel! == 20 || batterylevel! == 10) && !notificationGiven  {
                 // Give a notification
-                showNotification(title: "Parrot Zik", body: "Battery is low. Please recharge")
+                showNotification(title: "Parrot Zik", body: "Battery is low. " + batteryLevelString + "% still remaining. Please recharge")
             }
             if batterylevel! < 20 && batterylevel! > 10 {
                 notificationGiven = false
