@@ -41,14 +41,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             iconOff?.isTemplate = true
             statusItem.button?.image = iconOff
             
-            let _ = menu.addItem(withTitle: "Zik not connected", action: nil, keyEquivalent: "")
+            menu.addItem(withTitle: "Zik not connected", action: nil, keyEquivalent: "")
         }else{
             iconOn?.isTemplate = true
             statusItem.button?.image = iconOn
             
-            let _ = menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
+            menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
         }
-                
+        
         let batteryLevelString = self.deviceState.batteryLevel
         
         var title = "Battery level: " + batteryLevelString + "%"
