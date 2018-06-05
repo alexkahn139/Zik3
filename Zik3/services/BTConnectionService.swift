@@ -31,7 +31,7 @@ class BTConnectionService: BTConnectionServiceInterface {
         fromDevice device: IOBluetoothDevice) {
 
         NSLog("\(device.name) is Disonnected")
-        notificationCenter.post(name: Foundation.Notification.Name(rawValue: "disconnected"), object: nil)
+//        notificationCenter.post(name: Foundation.Notification.Name(rawValue: "disconnected"), object: nil)
     }
 
     fileprivate func searchForBluetoothService(_ fromDevice: IOBluetoothDevice)

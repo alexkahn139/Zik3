@@ -24,6 +24,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     @objc
+    func toggleMaxNoiseCancellation(sender: AnyObject){
+        if (self.deviceState.noiseControlLevelState == NoiseControlState.cancellingMax){
+            let _ = service?.setNoiseControlLevel(NoiseControlState.cancellingNormal)
+        }
+        else {
+            let _ =  service?.setNoiseControlLevel(NoiseControlState.cancellingMax)
+        }
+    }
+    
+    @objc
     func toggleEqualizer(sender: AnyObject) {
         let _ = service?.toggleAsyncEqualizerStatus(!self.deviceState.equalizerEnabled)
     }
@@ -74,6 +84,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         menuItem.indentationLevel = 1
         menuItem.state = self.deviceState.noiseCancellationEnabled ?
             NSControl.StateValue.on : NSControl.StateValue.off
+        
+        
+        menuItem = menu.addItem(withTitle: "Max Noise Cancelling", action: #selector(self.toggleMaxNoiseCancellation), keyEquivalent: "")
+        menuItem.indentationLevel = 1
+        if (self.deviceState.noiseControlLevelState == NoiseControlState.cancellingMax){
+            menuItem.state = NSControl.StateValue.on
+        }
+        else{
+            menuItem.state = NSControl.StateValue.off
+        }
         
         menuItem = menu.addItem(withTitle: "Equalizer", action: #selector(self.toggleEqualizer), keyEquivalent: "")
         menuItem.indentationLevel = 1

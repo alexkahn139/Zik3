@@ -12,7 +12,7 @@ class DeviceState {
     fileprivate var stateConcertHallEnabled: Bool = false
     fileprivate var stateHeadModeDetection: Bool = false
     fileprivate var stateFlightModeEnabled: Bool = false
-    fileprivate var noiseControlState: NoiseControlState = NoiseControlState.cancellingNormal
+    fileprivate var noiseControlState: NoiseControlState = NoiseControlState.cancellingMax
 
 
     var name: String {
