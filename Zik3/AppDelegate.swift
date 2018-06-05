@@ -74,7 +74,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             lastBatteryLevel = batterylevel
         }
         
-        title = "Power Source: " + (self.deviceState.batteryStatus == "charging" ? "Power Adapter" : "Battery")
+        title = "Power Source: " + ((self.deviceState.batteryStatus == "charging" || self.deviceState.batteryLevel == "100") ? "Power Adapter" : "Battery")
         menuItem = menu.addItem(withTitle: title, action: nil, keyEquivalent: "")
         menuItem.indentationLevel = 1
         
