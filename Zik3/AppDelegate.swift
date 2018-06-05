@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let iconOff = NSImage(named: NSImage.Name(rawValue: "disc"))
     let iconOn = NSImage(named: NSImage.Name(rawValue: "conn"))
     
-    var notificationGiven: Bool = false;
+    var lastBatteryLevel: Int? = 0;
     
     @objc
     func toggleNoiseCancellation(sender: AnyObject) {
@@ -67,13 +67,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         let batterylevel: Int? = Int(batteryLevelString)
         if batterylevel != nil {
-            if (batterylevel! == 20 || batterylevel! == 10) && !notificationGiven  {
+            if (batterylevel! == 20 || batterylevel! == 10) && (batterylevel! < lastBatteryLevel!)  {
                 // Give a notification
                 showNotification(title: "Parrot Zik", body: "Battery is low. " + batteryLevelString + "% still remaining. Please recharge")
             }
-            if batterylevel! < 20 && batterylevel! > 10 {
-                notificationGiven = false
-                }            
+            lastBatteryLevel = batterylevel
         }
         
         title = "Power Source: " + (self.deviceState.batteryStatus == "charging" ? "Power Adapter" : "Battery")
@@ -133,7 +131,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         notification.soundName = NSUserNotificationDefaultSoundName
 
-        notificationGiven = true;
         NSUserNotificationCenter.default.delegate = self as? NSUserNotificationCenterDelegate
         NSUserNotificationCenter.default.deliver(notification)
     }
