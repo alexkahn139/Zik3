@@ -92,7 +92,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         else{
             menuItem.state = NSControl.StateValue.off
         }
-        
         menuItem = menu.addItem(withTitle: "Equalizer", action: #selector(self.toggleEqualizer), keyEquivalent: "")
         menuItem.indentationLevel = 1
         menuItem.state = self.deviceState.equalizerEnabled ?
@@ -126,9 +125,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let notification = NSUserNotification()
         notification.title = title
         notification.informativeText = body
-        notification.hasActionButton = true
-        notification.actionButtonTitle = "Action Button"
-
         notification.soundName = NSUserNotificationDefaultSoundName
 
         NSUserNotificationCenter.default.delegate = self as? NSUserNotificationCenterDelegate
