@@ -15,6 +15,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let statusItem = NSStatusBar.system.statusItem(withLength: -1)
     let iconOff = NSImage(named: NSImage.Name(rawValue: "disc"))
     let iconOn = NSImage(named: NSImage.Name(rawValue: "conn"))
+    let iconBatt = NSImage(named: NSImage.Name(rawValue: "battery"))
     
     var lastBatteryLevel: Int? = 0;
     
@@ -46,26 +47,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @objc
     func doMenu() {
         let menu = NSMenu(title: "Contextual menu")
+        let batteryLevelString = self.deviceState.batteryLevel
+        let batterylevel: Int? = Int(batteryLevelString)
 
         if self.deviceState.name == "" {
             iconOff?.isTemplate = true
             statusItem.button?.image = iconOff
             
             menu.addItem(withTitle: "Zik not connected", action: nil, keyEquivalent: "")
-        }else{
+        }
+        else if batterylevel! <= 20{
+            iconBatt?.isTemplate = true
+            statusItem.button?.image = iconBatt
+            
+            menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
+        }
+        else{
             iconOn?.isTemplate = true
             statusItem.button?.image = iconOn
             
             menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
         }
         
-        let batteryLevelString = self.deviceState.batteryLevel
-        
         var title = "Battery level: " + batteryLevelString + "%"
         var menuItem = menu.addItem(withTitle: title, action: nil, keyEquivalent: "")
         menuItem.indentationLevel = 1
         
-        let batterylevel: Int? = Int(batteryLevelString)
         if batterylevel != nil {
             if (batterylevel! == 20 || batterylevel! == 10) && (batterylevel! < lastBatteryLevel!)  {
                 // Give a notification
