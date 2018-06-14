@@ -16,6 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let iconOff = NSImage(named: NSImage.Name(rawValue: "disc"))
     let iconOn = NSImage(named: NSImage.Name(rawValue: "conn"))
     let iconBatt = NSImage(named: NSImage.Name(rawValue: "battery"))
+    let iconCharg = NSImage(named: NSImage.Name(rawValue: "charging"))
     
     var lastBatteryLevel: Int? = 0;
     
@@ -55,6 +56,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             statusItem.button?.image = iconOff
             
             menu.addItem(withTitle: "Zik not connected", action: nil, keyEquivalent: "")
+        }
+        else if (self.deviceState.batteryStatus == "charging"){
+            iconCharg?.isTemplate = true
+            statusItem.button?.image = iconCharg
+            
+            menu.addItem(withTitle: self.deviceState.name, action: nil, keyEquivalent: "")
+
         }
         else if batterylevel! <= 20{
             iconBatt?.isTemplate = true
